@@ -50,7 +50,11 @@ public class IndoNumeroController {
 
     @FXML
     void handleNuova(ActionEvent event) {
-    	
+    	   		
+    	txtTentativo.setText("");
+    	txtLog.setText("");
+    	txtLog.setText("inserire un numero tra "+1+" e "+ NMAX+"\n");
+        
     	segreto=(int) (Math.random()*NMAX)+1;
     	tentativi=0;
     	inGame=true;
@@ -76,11 +80,60 @@ public class IndoNumeroController {
 	    	
 	    try{
 	    	int num= Integer.parseInt(numS);
+	    	
+	    	if(num==segreto){
+	    		//indovinato
+	    		
+	    		txtLog.appendText("Hai vinto\n");
+	    		
+	    		boxGioco.setDisable(true);
+	    		btnNuova.setDisable(false);
+	    		
+	    		inGame=false;
+	    	}
+	    	
+	    	else {
+	    		//tentativo fallito
+	    		
+	    		tentativi++;
+	    		
+	    		txtCurr.setText(""+tentativi);
+	    		
+	    		if(tentativi == TMAX){
+	    			//perso
+	    			
+	    			txtLog.appendText("hai perso! il numero era "+segreto+"\n");
+		    		boxGioco.setDisable(true);
+		    		btnNuova.setDisable(false);
+		    		
+		    		inGame=false;
+    			
+	    		}
+	    		
+	    		else{
+	    			//ancora in gioco
+	    			
+	    			if(num<segreto){
+	    				
+	    				//basso
+	    				txtLog.appendText("numero troppo basso\n");
+	    				
+	    			}
+	    			
+	    			else {
+	    				
+	    				//alto
+	    				
+	    				txtLog.appendText("numero troppo alto\n");
+	    			}
+	    		}
+	    	}
 	    }
 	    
 	    catch(NumberFormatException nfe){
 	    	
 	    	txtLog.appendText("valore inserito non numerico\n");
+	    	return;
 	    	
 	    }
     }
