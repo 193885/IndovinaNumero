@@ -81,6 +81,12 @@ public class IndoNumeroController {
 	    try{
 	    	int num= Integer.parseInt(numS);
 	    	
+	    	if(num < 1 || num > 100){
+	    		
+	    		txtLog.appendText("numero non in range\n");
+	    		return;
+	    	}
+	    	
 	    	if(num==segreto){
 	    		//indovinato
 	    		
